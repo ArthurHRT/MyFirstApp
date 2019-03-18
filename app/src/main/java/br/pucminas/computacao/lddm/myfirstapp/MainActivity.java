@@ -3,6 +3,7 @@ package br.pucminas.computacao.lddm.myfirstapp;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.net.URLEncoder;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         p = new Pessoa(nm, sb, nmr, em);
 
         adicionandoContato(p);
-        whatsappMessage(p);
+        sendWhatsappMessage(p);
 
     }
 
@@ -59,6 +62,27 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void sendWhatsappMessage(Pessoa p){
+        PackageManager packageManager = this.getPackageManager();
+        Intent itn = new Intent(Intent.ACTION_VIEW);
+        String phone = "55" + p.getCelular();
+
+        try {
+            String url = "https://api.whatsapp.com/send?phone="+ phone +"&text=" + URLEncoder.encode("Cadastro realizado com sucesso!", "UTF-8");
+            itn.setPackage("com.whatsapp");
+            itn.setData(Uri.parse(url));
+
+            if (itn.resolveActivity(packageManager) != null) {
+                this.startActivity(itn);
+            } else {
+                Toast.makeText(this.getApplicationContext(),"Mensagem não enviada.",Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /*
     protected void whatsappMessage(Pessoa p) {
 
         PackageManager pm = getPackageManager();
@@ -82,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
            }
 
     }
+    */
 
 }
 
