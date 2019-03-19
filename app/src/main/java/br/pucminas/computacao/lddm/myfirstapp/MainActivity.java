@@ -1,10 +1,12 @@
 package br.pucminas.computacao.lddm.myfirstapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.ContactsContract;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +32,17 @@ public class MainActivity extends AppCompatActivity {
         //salvarcontato.setOnClickListener(new View.OnClickListener());
     }
 
+    private void loginButton() {
+        loginBut = (Button) findViewById(R.id.loginButton);
+        loginBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loginScreen = new Intent(getApplicationContext(),Login.class);
+                startActivity(loginScreen);
+            }
+        });
+    }
+
     public void SalvarContato(View view){
         EditText nome = (EditText)findViewById(R.id.editText2);
         EditText sobrenome = (EditText)findViewById(R.id.editText3);
@@ -43,8 +56,23 @@ public class MainActivity extends AppCompatActivity {
 
         p = new Pessoa(nm, sb, nmr, em);
 
-        adicionandoContato(p);
-        sendWhatsappMessage(p);
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setMessage("Deseja realmente salvar contato?")
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        sendEmailMessage(p);
+                        sendWhatsappMessage(p);
+                        adicionandoContato(p);
+                    }
+                })
+                .setNegativeButton("Não", null);
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
+        //sendWhatsappMessage(p);
+        //adicionandoContato(p);
 
     }
 
@@ -82,31 +110,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*
-    protected void whatsappMessage(Pessoa p) {
+    private void sendEmailMessage(Pessoa p) {
+        final Intent intent = new Intent(Intent.ACTION_SEND);
+        String[] emails = p.getEmail().split(",");
 
-        PackageManager pm = getPackageManager();
-           try {
+        try {
+            intent.putExtra(Intent.EXTRA_EMAIL, emails);
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Confirmação de Cadastro");
+            intent.putExtra(Intent.EXTRA_TEXT, "Seu cadastro foi realizado com sucesso!");
 
-               Intent waIntent = new Intent(Intent.ACTION_SEND);
-               waIntent.setType("text/plain");
-               String text = "Cadastro realizado com sucesso!";
-
-               PackageInfo info = pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
-               //Check if package exists or not. If not then code
-               //in catch block will be called
-               waIntent.setPackage("com.whatsapp");
-
-               waIntent.putExtra(Intent.EXTRA_TEXT, text);
-               startActivity(Intent.createChooser(waIntent, "Mensagem Enviada."));
-
-           } catch (PackageManager.NameNotFoundException e) {
-               Toast.makeText(this, "WhatsApp não Instalado!", Toast.LENGTH_SHORT)
-                       .show();
-           }
+            intent.setType("message/rfc822");
+            startActivity(Intent.createChooser(intent, "Escolha um cliente de email"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
-    */
 
 }
 
