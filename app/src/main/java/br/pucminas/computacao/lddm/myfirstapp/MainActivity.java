@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         //salvarcontato.setOnClickListener(new View.OnClickListener());
     }
 
+    /*
     private void loginButton() {
         loginBut = (Button) findViewById(R.id.loginButton);
         loginBut.setOnClickListener(new View.OnClickListener() {
@@ -42,12 +43,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    */
 
     public void SalvarContato(View view){
-        EditText nome = (EditText)findViewById(R.id.editText2);
-        EditText sobrenome = (EditText)findViewById(R.id.editText3);
-        EditText numero = (EditText)findViewById(R.id.editText4);
-        EditText email = (EditText)findViewById(R.id.editText5);
+        EditText nome = findViewById(R.id.editText2);
+        EditText sobrenome = findViewById(R.id.editText3);
+        EditText numero = findViewById(R.id.editText4);
+        EditText email = findViewById(R.id.editText5);
 
         String nm = nome.getText().toString();
         String sb = sobrenome.getText().toString();
@@ -61,9 +63,13 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Intent loginScreen = new Intent(getApplicationContext(),Login.class);
+                        startActivity(loginScreen);
+
                         sendEmailMessage(p);
                         sendWhatsappMessage(p);
-                        adicionandoContato(p);
+                        addContact(p);
+
                     }
                 })
                 .setNegativeButton("Não", null);
@@ -76,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    protected void adicionandoContato(Pessoa p){
+    protected void addContact(Pessoa p){
 
         Intent intent = new Intent(Intent.ACTION_INSERT);
         intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
