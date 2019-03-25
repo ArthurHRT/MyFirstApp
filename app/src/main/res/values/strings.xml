@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">My First App</string>
+    <string name="facebook_app_id">2356686991210154</string> <string name="fb_login_protocol_scheme">fb2356686991210154</string>
     <string name="adicionar_novo_contato">ADICIONAR NOVO CONTATO</string>
     <string name="conecte_se">CONECTE-SE</string>
     <string name="nome">Nome</string>

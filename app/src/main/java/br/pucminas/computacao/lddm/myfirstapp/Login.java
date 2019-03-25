@@ -52,14 +52,14 @@ public class Login extends AppCompatActivity {
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(getApplicationContext(),"Login realizado",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Login realizado", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
 
             @Override
             public void onCancel() {
-                Toast.makeText(getApplicationContext(),"Login cancelado",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Login cancelado", Toast.LENGTH_SHORT).show();
                 AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
                 builder.setMessage("Login Cancelado!")
                         .setPositiveButton("OK", null);
@@ -70,7 +70,7 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void onError(FacebookException error) {
-                Toast.makeText(getApplicationContext(),"Erro ao fazer login",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Erro ao fazer login", Toast.LENGTH_SHORT).show();
                 AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
                 builder.setMessage("Erro ao fazer o login!")
                         .setPositiveButton("OK", null);
@@ -83,7 +83,7 @@ public class Login extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        callbackManager.onActivityResult(requestCode,resultCode,data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     /*
