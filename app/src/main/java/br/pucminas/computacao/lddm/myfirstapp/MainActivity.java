@@ -18,32 +18,18 @@ import java.net.URLEncoder;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button salvarcontato;
     Pessoa p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //salvarcontato = (Button)findViewById(R.id.button);
-
-
-
-        //salvarcontato.setOnClickListener(new View.OnClickListener());
     }
 
-    /*
-    private void loginButton() {
-        loginBut = (Button) findViewById(R.id.loginButton);
-        loginBut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent loginScreen = new Intent(getApplicationContext(),Login.class);
-                startActivity(loginScreen);
-            }
-        });
+    public void LoginScreen(View view){
+        Intent loginScreen = new Intent(this, Login.class);
+        startActivity(loginScreen);
     }
-    */
 
     public void SalvarContato(View view){
         EditText nome = findViewById(R.id.editText2);
@@ -76,9 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
         AlertDialog alert = builder.create();
         alert.show();
-
-        //sendWhatsappMessage(p);
-        //adicionandoContato(p);
 
     }
 

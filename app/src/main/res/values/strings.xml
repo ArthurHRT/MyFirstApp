@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">My First App</string>
+    <string name="adicionar_novo_contato">ADICIONAR NOVO CONTATO</string>
+    <string name="conecte_se">CONECTE-SE</string>
+    <string name="nome">Nome</string>
+    <string name="digite_os_dados">Digite os dados:</string>
+    <string name="sobrenome">Sobrenome</string>
+    <string name="e_mail">E-mail</string>
+    <string name="ddd_celular">(DDD) + Celular</string>
+    <string name="salvar_contato">SALVAR CONTATO</string>
 </resources>
